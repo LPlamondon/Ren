@@ -30,6 +30,10 @@ BASE = {
     "pending": EMPTY,
 }
 
+DEFAULT_GUILD = {
+    "waifuneko": False
+}
+
 
 class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
     """Display cute nyaas~"""
@@ -86,6 +90,7 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         self.bot = bot
         self.config = Config.get_conf(self, identifier=5842647)
         self.config.register_global(**BASE)
+        self.config.register_guild(**DEFAULT_GUILD)
         self.catgirls = None
         self.catgirlsLocal = None
         self.catgirlsLocalTrap = None
