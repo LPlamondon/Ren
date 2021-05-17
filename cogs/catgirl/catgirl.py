@@ -31,9 +31,7 @@ BASE = {
     "pending": EMPTY,
 }
 
-DEFAULT_GUILD = {
-    "waifuneko": False
-}
+DEFAULT_GUILD = {"waifuneko": False}
 
 
 class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
@@ -112,14 +110,14 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
 
         if nekoToggle == True:
             choice = random.randint(0, 1)
-            if(choice == 0):
+            if choice == 0:
                 embed = getImage(self.catgirls, "Catgirl")
             else:
                 #
                 URL = "https://api.waifu.pics/sfw/neko"
-                r = requests.get(url = URL)
+                r = requests.get(url=URL)
                 data = r.json()
-                embed = getImageUrl(data['url'])
+                embed = getImageUrl(data["url"])
         else:
             embed = getImage(self.catgirls, "Catgirl")
 
@@ -128,7 +126,6 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         except discord.errors.Forbidden:
             # No permission to send, ignore.
             pass
-
 
     async def catboyCmd(self, ctx):
         """This command says it all (database still WIP)"""
@@ -316,7 +313,9 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         waifuneko_val = await self.config.guild(ctx.guild).waifuneko()
         await self.config.guild(ctx.guild).waifuneko.set(False if waifuneko_val else True)
 
-        await ctx.send("Using waifupics API for catgirls is now {}".format("off" if waifuneko_val else "on")) #waifuneko_val wasn't updated after setting the thing
+        await ctx.send(
+            "Using waifupics API for catgirls is now {}".format("off" if waifuneko_val else "on")
+        )  # waifuneko_val wasn't updated after setting the thing
 
     async def randomize(self):
         """Shuffles images in the list."""
@@ -363,10 +362,11 @@ def getImage(imageList, title):
     embed.set_image(url=image[KEY_IMAGE_URL])
     return embed
 
+
 def getImageUrl(image):
     embed = discord.Embed()
     embed.colour = discord.Colour.red()
     embed.title = "Catgirl"
     embed.url = image
-    embed.set_image(url = image)
+    embed.set_image(url=image)
     return embed
