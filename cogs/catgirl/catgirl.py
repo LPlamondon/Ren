@@ -2,7 +2,7 @@
 import asyncio
 import random
 import discord
-from redbot.core import Config, commands
+from redbot.core import checks, Config, commands
 from redbot.core.bot import Red
 
 # Global variables
