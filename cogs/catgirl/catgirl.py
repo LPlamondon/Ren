@@ -2,6 +2,7 @@
 import asyncio
 import random
 import discord
+import requests
 from redbot.core import checks, Config, commands
 from redbot.core.bot import Red
 
@@ -110,12 +111,15 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         nekoToggle = await self.config.guild(ctx.guild)()
 
         if nekoToggle == True:
-            #stuff happens
             choice = randint(0, 1)
             if(choice == 0):
                 embed = getImage(self.catgirls, "Catgirl")
             else:
-                embed = https://api.waifu.pics/sfw/neko
+                #
+                URL = https://api.waifu.pics/sfw/neko
+                r = requests.get(url = URL)
+                data = r.json()
+                embed = data['url']
         else:
             embed = getImage(self.catgirls, "Catgirl")
 
