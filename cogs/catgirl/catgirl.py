@@ -124,9 +124,9 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
                 URL = "https://api.waifu.pics/sfw/neko"
                 r = requests.get(url = URL)
                 data = r.json()
-                embed = data['url']
+                embed = getImageUrl(data['url'])
                 try:
-                    await ctx.send(embed)
+                    await ctx.send(embed=embed)
                 except discord.errors.Forbidden:
                     # No permission to send, ignore.
                     pass
@@ -371,4 +371,12 @@ def getImage(imageList, title):
     if "character" in image:
         embed.add_field(name="Info", value=image["character"], inline=False)
     embed.set_image(url=image[KEY_IMAGE_URL])
+    return embed
+
+def getImageUrl(image):
+    embed = discord.Embed()
+    embed.colour = discord.Colour.red()
+    embed.title = "Catgirl"
+    embed.url = image
+    embed.set_image(url = image)
     return embed
