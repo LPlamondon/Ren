@@ -291,6 +291,18 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         else:
             await ctx.send("Added, notified and pending approval. :ok_hand:")
 
+    # [p]nyaa toggle
+    @_nyaa.command(name="toggle")
+    @checks.admin_or_permissions(manage_guild=True)
+    async def toggle(self, ctx):
+        """Toggle using waifu.pics API"""
+        # Send typing indicator, useful when Discord explicit filter is on.
+        await ctx.channel.trigger_typing()
+
+        await.config.guild(ctx.guild).waifuneko(False if waifuneko else True)
+
+        await ctx.send("Using waifupics API for catgirls is now {}".format("on" if waifuneko else "off"))
+
     async def randomize(self):
         """Shuffles images in the list."""
         while self:
