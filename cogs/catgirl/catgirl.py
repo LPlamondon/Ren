@@ -107,8 +107,18 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         """Displays a random, cute catgirl :3"""
         # Send typing indicator, useful when Discord explicit filter is on.
         await ctx.channel.trigger_typing()
+        nekoToggle = await self.config.guild(ctx.guild)()
 
-        embed = getImage(self.catgirls, "Catgirl")
+        if nekoToggle == True:
+            #stuff happens
+            choice = randint(0, 1)
+            if(choice == 0):
+                embed = getImage(self.catgirls, "Catgirl")
+            else:
+                embed = https://api.waifu.pics/sfw/neko
+        else:
+            embed = getImage(self.catgirls, "Catgirl")
+
 
         try:
             await ctx.send(embed=embed)
