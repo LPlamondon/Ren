@@ -108,27 +108,37 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         """Displays a random, cute catgirl :3"""
         # Send typing indicator, useful when Discord explicit filter is on.
         await ctx.channel.trigger_typing()
-        nekoToggle = await self.config.guild(ctx.guild)()
+        nekoToggle = await self.config.guild(ctx.guild).waifuneko()
 
         if nekoToggle == True:
-            choice = randint(0, 1)
+            choice = random.randint(0, 1)
             if(choice == 0):
                 embed = getImage(self.catgirls, "Catgirl")
+                try:
+                    await ctx.send(embed=embed)
+                except discord.errors.Forbidden:
+                    # No permission to send, ignore.
+                    pass
             else:
                 #
                 URL = "https://api.waifu.pics/sfw/neko"
                 r = requests.get(url = URL)
                 data = r.json()
                 embed = data['url']
+                try:
+                    await ctx.send(embed)
+                except discord.errors.Forbidden:
+                    # No permission to send, ignore.
+                    pass
         else:
             embed = getImage(self.catgirls, "Catgirl")
+            try:
+                await ctx.send(embed=embed)
+            except discord.errors.Forbidden:
+                # No permission to send, ignore.
+                pass
 
 
-        try:
-            await ctx.send(embed=embed)
-        except discord.errors.Forbidden:
-            # No permission to send, ignore.
-            pass
 
     async def catboyCmd(self, ctx):
         """This command says it all (database still WIP)"""
@@ -313,9 +323,10 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         # Send typing indicator, useful when Discord explicit filter is on.
         await ctx.channel.trigger_typing()
 
-        await.config.guild(ctx.guild).waifuneko(False if waifuneko else True)
+        waifuneko_val = await self.config.guild(ctx.guild).waifuneko()
+        await self.config.guild(ctx.guild).waifuneko.set(False if waifuneko_val else True)
 
-        await ctx.send("Using waifupics API for catgirls is now {}".format("on" if waifuneko else "off"))
+        await ctx.send("Using waifupics API for catgirls is now {}".format("off" if waifuneko_val else "on")) #waifuneko_val wasn't updated after setting the thing
 
     async def randomize(self):
         """Shuffles images in the list."""
