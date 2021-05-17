@@ -116,7 +116,7 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
                 embed = getImage(self.catgirls, "Catgirl")
             else:
                 #
-                URL = https://api.waifu.pics/sfw/neko
+                URL = "https://api.waifu.pics/sfw/neko"
                 r = requests.get(url = URL)
                 data = r.json()
                 embed = data['url']
