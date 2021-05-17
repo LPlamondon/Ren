@@ -114,30 +114,20 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
             choice = random.randint(0, 1)
             if(choice == 0):
                 embed = getImage(self.catgirls, "Catgirl")
-                try:
-                    await ctx.send(embed=embed)
-                except discord.errors.Forbidden:
-                    # No permission to send, ignore.
-                    pass
             else:
                 #
                 URL = "https://api.waifu.pics/sfw/neko"
                 r = requests.get(url = URL)
                 data = r.json()
                 embed = getImageUrl(data['url'])
-                try:
-                    await ctx.send(embed=embed)
-                except discord.errors.Forbidden:
-                    # No permission to send, ignore.
-                    pass
         else:
             embed = getImage(self.catgirls, "Catgirl")
-            try:
-                await ctx.send(embed=embed)
-            except discord.errors.Forbidden:
-                # No permission to send, ignore.
-                pass
 
+        try:
+            await ctx.send(embed=embed)
+        except discord.errors.Forbidden:
+            # No permission to send, ignore.
+            pass
 
 
     async def catboyCmd(self, ctx):
