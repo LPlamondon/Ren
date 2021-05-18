@@ -304,7 +304,7 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
 
     # [p]nyaa toggle
     @_nyaa.command(name="toggle")
-    @checks.admin_or_permissions(manage_guild=True)
+    @checks.mod_or_permissions(manage_guild=True)
     async def toggle(self, ctx):
         """Toggle using waifu.pics API"""
         # Send typing indicator, useful when Discord explicit filter is on.
