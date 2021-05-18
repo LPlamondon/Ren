@@ -362,7 +362,18 @@ def getImage(imageList, title):
     embed.set_image(url=image[KEY_IMAGE_URL])
     return embed
 
+"""
+Take a passed url from Waifu.pics, and construct a discord.Embed object
 
+Parameters:
+-----------
+image : a URL
+
+Returns:
+-----------
+embed : discord.embed
+    a fully constructed discord.Embed object, ready to be sent as a message.
+"""
 def getImageUrl(image):
     embed = discord.Embed()
     embed.colour = discord.Colour.red()
