@@ -17,6 +17,7 @@ KEY_SEIGA_ID = "id"
 PREFIX_PIXIV = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id={}"
 PREFIX_SEIGA = "http://seiga.nicovideo.jp/seiga/im{}"
 SAVE_FOLDER = "data/lui-cogs/catgirl/"  # Path to save folder.
+URL = "https://api.waifu.pics/sfw/neko" # For a random sfw neko image from the waifu.pics API
 
 EMPTY = {KEY_CATGIRL: [], KEY_CATBOY: []}
 BASE = {
@@ -114,7 +115,6 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
                 embed = getImage(self.catgirls, "Catgirl")
             else:
                 #
-                URL = "https://api.waifu.pics/sfw/neko"
                 r = requests.get(url=URL)
                 data = r.json()
                 embed = getImageUrl(data["url"])
