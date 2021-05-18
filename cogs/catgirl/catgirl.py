@@ -17,7 +17,7 @@ KEY_SEIGA_ID = "id"
 PREFIX_PIXIV = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id={}"
 PREFIX_SEIGA = "http://seiga.nicovideo.jp/seiga/im{}"
 SAVE_FOLDER = "data/lui-cogs/catgirl/"  # Path to save folder.
-URL = "https://api.waifu.pics/sfw/neko" # For a random sfw neko image from the waifu.pics API
+URL = "https://api.waifu.pics/sfw/neko"  # For a random sfw neko image from the waifu.pics API
 
 EMPTY = {KEY_CATGIRL: [], KEY_CATBOY: []}
 BASE = {
@@ -362,6 +362,7 @@ def getImage(imageList, title):
     embed.set_image(url=image[KEY_IMAGE_URL])
     return embed
 
+
 """
 Take a passed url from Waifu.pics, and construct a discord.Embed object
 
@@ -374,6 +375,8 @@ Returns:
 embed : discord.embed
     a fully constructed discord.Embed object, ready to be sent as a message.
 """
+
+
 def getImageUrl(image):
     embed = discord.Embed()
     embed.colour = discord.Colour.red()
