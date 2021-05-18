@@ -108,7 +108,7 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
         await ctx.channel.trigger_typing()
         nekoToggle = await self.config.guild(ctx.guild).waifuneko()
 
-        if nekoToggle == True:
+        if nekoToggle:
             choice = random.randint(0, 1)
             if choice == 0:
                 embed = getImage(self.catgirls, "Catgirl")
