@@ -114,7 +114,6 @@ class Catgirl(commands.Cog):  # pylint: disable=too-many-instance-attributes
             if choice == 0:
                 embed = getImage(self.catgirls, "Catgirl")
             else:
-                #
                 r = requests.get(url=URL)
                 data = r.json()
                 embed = getImageUrl(data["url"])
