@@ -289,9 +289,10 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         if match:  # channel ID
             channel = discord.utils.get(ctx.message.guild.channels, id=match.group(1))
             channelName = channel.name
+            channel_ID = channel.id
 
-        if channelName not in channelAllowed:
-            channelAllowed.append(channelName)
+        if channel_ID not in channelAllowed:
+            channelAllowed.append(channel_ID)
             await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
             await ctx.send(
                 ":white_check_mark: Word Filter: Channel with name "
@@ -324,6 +325,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         if match:  # channel ID
             channel = discord.utils.get(ctx.message.guild.channels, id=match.group(1))
             channelName = channel.name
+            channe._ID = channel.id
 
         if not channelAllowed or channelName not in channelAllowed:
             await ctx.send(
@@ -331,7 +333,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
                 f"`{channelName}` is not on the allowlist."
             )
         else:
-            channelAllowed.remove(channelName)
+            channelAllowed.remove(channel_ID)
             await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
             await ctx.send(
                 f":white_check_mark: Word Filter: `{channelName}` removed from "
