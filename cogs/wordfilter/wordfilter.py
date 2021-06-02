@@ -300,36 +300,28 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
     @_channel.command(name="del", aliases=["delete", "remove", "rm"])
     @commands.guild_only()
     @checks.mod_or_permissions(manage_messages=True)
-    async def _channelRemove(self, ctx, channelName):
+    async def _channelRemove(self, ctx, channel: discord.TextChannel):
         """Remove a channel from the allowlist.
 
         All messages in the removed channel will be subjected to the filter.
 
         Parameters:
         -----------
-        channelName: str
+        channel: discord.TextChannel
             The channel to remove from the allowlist.
         """
-        guildName = ctx.message.guild.name
-
         channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
 
-        match = re.search(PATTERN_CHANNEL_ID, channelName)
-        if match:  # channel ID
-            channel = discord.utils.get(ctx.message.guild.channels, id=match.group(1))
-            channelName = channel.name
-            channe._ID = channel.id
-
-        if not channelAllowed or channelName not in channelAllowed:
+        if not channelAllowed or channel.id not in channelAllowed:
             await ctx.send(
                 ":negative_squared_cross_mark: Word Filter: Channel "
-                f"`{channelName}` is not on the allowlist."
+                f"`{channel.name}` is not on the allowlist."
             )
         else:
-            channelAllowed.remove(channel_ID)
+            channelAllowed.remove(channel.id)
             await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
             await ctx.send(
-                f":white_check_mark: Word Filter: `{channelName}` removed from "
+                f":white_check_mark: Word Filter: `{channel.name}` removed from "
                 "the channel allowlist."
             )
 
