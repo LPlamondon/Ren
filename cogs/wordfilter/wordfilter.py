@@ -339,7 +339,9 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         if channelAllowed:
             display = []
             for channel in channelAllowed:
-                display.append("`{}`".format(channel))
+                channelTemp = discord.utils.get(ctx.guild.channels, channel)
+                if not channelTemp: continue
+                display.append("`{}`".format(channelTemp.name))
 
             page = paginator.Pages(ctx=ctx, entries=display, show_entry_count=True)
             page.embed.title = f"Allowlist channels for: **{guildName}**"
