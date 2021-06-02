@@ -374,7 +374,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         try:
             allowlist = await self.config.guild(msg.guild).channelAllowed()
             for channels in allowlist:
-                if channels.lower() == msg.channel.name.lower():
+                if channels == msg.channel.id:
                     return False
         except Exception as error:  # pylint: disable=broad-except
             # Most likely no allowlist channels.
