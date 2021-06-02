@@ -294,7 +294,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         else:
             await ctx.send(
                 ":negative_squared_cross_mark: Word Filter: Channel "
-                f"`{channe.name}` is already on the allowlist."
+                f"`{channel.name}` is already on the allowlist."
             )
 
     @_channel.command(name="del", aliases=["delete", "remove", "rm"])
