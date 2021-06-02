@@ -279,7 +279,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
 
         Parameters:
         -----------
-        channelName: str
+        channel: discord.TextChannel
             The channel to add to the allowlist.
         """
         channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
