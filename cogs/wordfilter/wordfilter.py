@@ -340,7 +340,8 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
             display = []
             for channel in channelAllowed:
                 channelTemp = discord.utils.get(ctx.guild.channels, id=channel)
-                if not channelTemp: continue
+                if not channelTemp:
+                    continue
                 display.append("`{}`".format(channelTemp.name))
 
             page = paginator.Pages(ctx=ctx, entries=display, show_entry_count=True)
