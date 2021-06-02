@@ -17,7 +17,7 @@ from redbot.core.bot import Red
 COLOUR = discord.Colour
 COLOURS = [COLOUR.purple(), COLOUR.red(), COLOUR.blue(), COLOUR.orange(), COLOUR.green()]
 PATTERN_CHANNEL_ID = r"<#(\d+)>"
-BASE = {"channelAllowed": [], "filters": [], "commandDenied": [], "toggleMod": False}
+BASE = {"channelIdsAllowed": [], "filters": [], "commandDenied": [], "toggleMod": False}
 
 
 class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
@@ -282,11 +282,11 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         channel: discord.TextChannel
             The channel to add to the allowlist.
         """
-        channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
+        channelIdsAllowed = await self.config.guild(ctx.guild).channelIdsAllowed()
 
-        if channel.id not in channelAllowed:
-            channelAllowed.append(channel.id)
-            await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
+        if channel.id not in channelIdsAllowed:
+            channelIdsAllowed.append(channel.id)
+            await self.config.guild(ctx.guild).channelIdsAllowed.set(channelIdsAllowed)
             await ctx.send(
                 ":white_check_mark: Word Filter: Channel with name "
                 f"`{channel.name}` will not be filtered."
@@ -310,16 +310,16 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         channel: discord.TextChannel
             The channel to remove from the allowlist.
         """
-        channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
+        channelIdsAllowed = await self.config.guild(ctx.guild).channelIdsAllowed()
 
-        if channel.id not in channelAllowed:
+        if channel.id not in channelIdsAllowed:
             await ctx.send(
                 ":negative_squared_cross_mark: Word Filter: Channel "
                 f"`{channel.name}` is not on the allowlist."
             )
         else:
-            channelAllowed.remove(channel.id)
-            await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
+            channelIdsAllowed.remove(channel.id)
+            await self.config.guild(ctx.guild).channelIdsAllowed.set(channelIdsAllowed)
             await ctx.send(
                 f":white_check_mark: Word Filter: `{channel.name}` removed from "
                 "the channel allowlist."
@@ -334,11 +334,11 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         """
         guildName = ctx.message.guild.name
 
-        channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
+        channelIdsAllowed = await self.config.guild(ctx.guild).channelIdsAllowed()
 
-        if channelAllowed:
+        if channelIdsAllowed:
             display = []
-            for channel in channelAllowed:
+            for channel in channelIdsAllowed:
                 channelTemp = discord.utils.get(ctx.guild.channels, id=channel)
                 if not channelTemp:
                     continue
@@ -373,7 +373,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
 
         # Do not filter allowlist channels
         try:
-            allowlist = await self.config.guild(msg.guild).channelAllowed()
+            allowlist = await self.config.guild(msg.guild).channelIdsAllowed()
             for channels in allowlist:
                 if channels == msg.channel.id:
                     return False
