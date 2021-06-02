@@ -312,7 +312,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         """
         channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
 
-        if not channelAllowed or channel.id not in channelAllowed:
+        if channel.id not in channelAllowed:
             await ctx.send(
                 ":negative_squared_cross_mark: Word Filter: Channel "
                 f"`{channel.name}` is not on the allowlist."
