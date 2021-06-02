@@ -272,7 +272,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
     @_channel.command(name="add")
     @commands.guild_only()
     @checks.mod_or_permissions(manage_messages=True)
-    async def _channelAdd(self, ctx, channelName):
+    async def _channelAdd(self, ctx, channel: discord.TextChannel):
         """Add a channel to the allowlist.
 
         All messages in the channel will not be filtered.
@@ -282,26 +282,19 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         channelName: str
             The channel to add to the allowlist.
         """
-        guildId = ctx.message.guild.id
         channelAllowed = await self.config.guild(ctx.guild).channelAllowed()
 
-        match = re.search(PATTERN_CHANNEL_ID, channelName)
-        if match:  # channel ID
-            channel = discord.utils.get(ctx.message.guild.channels, id=match.group(1))
-            channelName = channel.name
-            channel_ID = channel.id
-
-        if channel_ID not in channelAllowed:
-            channelAllowed.append(channel_ID)
+        if channel.id not in channelAllowed:
+            channelAllowed.append(channel.id)
             await self.config.guild(ctx.guild).channelAllowed.set(channelAllowed)
             await ctx.send(
                 ":white_check_mark: Word Filter: Channel with name "
-                f"`{channelName}` will not be filtered."
+                f"`{channel.name}` will not be filtered."
             )
         else:
             await ctx.send(
                 ":negative_squared_cross_mark: Word Filter: Channel "
-                f"`{channelName}` is already on the allowlist."
+                f"`{channe.name}` is already on the allowlist."
             )
 
     @_channel.command(name="del", aliases=["delete", "remove", "rm"])
