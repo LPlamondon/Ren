@@ -339,7 +339,7 @@ class WordFilter(commands.Cog):  # pylint: disable=too-many-instance-attributes
         if channelAllowed:
             display = []
             for channel in channelAllowed:
-                channelTemp = discord.utils.get(ctx.guild.channels, channel)
+                channelTemp = discord.utils.get(ctx.guild.channels, id=channel)
                 if not channelTemp: continue
                 display.append("`{}`".format(channelTemp.name))
 
